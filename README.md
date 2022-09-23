@@ -9,7 +9,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Expose version name
+      - name: Read Android Build Gradle File
         uses: wu-json/read-android-build-gradle@v1.0
         with:
           path: 'android/app/build.gradle'
