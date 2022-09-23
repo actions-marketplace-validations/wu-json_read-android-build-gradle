@@ -1,13 +1,7 @@
-This action exposes the version name and version code in your Android app's `build.gradle` file as env vars.
-
-There are only three inputs:
-1. `path`: Specify the path to your `build.gradle`. This one is optional, if not specified it defaults to `app/build.gradle`, which is the location this file is most commonly found if you pull an Android repo during your CI flow.
-
-2. `expose-version-code`: This expects either **'true'** or **'false'**. Set it to **'true'** if you want the **version code** exposed.
-3. `expose-version-name`: This also expects either **'true'** or **'false'**. Set it to **'true'** if you want the **version name** exposed.
+This action exposes parses the build.gradle in your Android app and returns the values as outputs.
 
 ### Example:
-```
+```(yaml)
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,4 +15,24 @@ jobs:
           path: 'android/app/build.gradle'
 ```
 
-Depending on your set values, and if the `build.gradle` file is found in the specified location, the action will expose the **version code** as an env var named `ANDROID_VERSION_CODE` and the **version name** as an env var named `ANDROID_VERSION_NAME`.
+### Contributing
+To contribute to the action and publish a new version, do the following:
+```(bash)
+# install packages
+npm install
+
+# build typescript
+npm run build
+
+# package for distribution
+npm run package
+
+# commit to main
+git add .
+git commit -m "feat: message"
+git push
+
+# create release tag
+git tag -a v1.0 -m v1.0
+git push --follow-tags
+```

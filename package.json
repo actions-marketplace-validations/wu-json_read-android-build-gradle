@@ -22,7 +22,7 @@
     "node",
     "setup"
   ],
-  "author": "",
+  "author": "wu-json",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.9.1"
