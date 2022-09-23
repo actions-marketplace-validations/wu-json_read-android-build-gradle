@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v3
+
       - name: Expose version name
-        uses: michpohl/android-expose-version-name-action@v1.0.0
+        uses: wu-json/read-android-build-gradle@v1.0
         with:
-          expose-version-name: 'true'
-          expose-version-code: 'false'
+          path: 'android/app/build.gradle'
 ```
 
 Depending on your set values, and if the `build.gradle` file is found in the specified location, the action will expose the **version code** as an env var named `ANDROID_VERSION_CODE` and the **version name** as an env var named `ANDROID_VERSION_NAME`.
