@@ -8,8 +8,8 @@ function getBooleanInput(inputName: string, defaultValue: boolean = false): bool
   return (core.getInput(inputName) || String(defaultValue)).toUpperCase() === 'TRUE';
 }
 
-function setEnvironmentVariable(key: string, value: string) {
-  core.exportVariable(key, value);
+function setOutput(key: string, value: string) {
+  core.setOutput(key, value);
 };
 
 function getVersionCode(content: string): any {
@@ -55,8 +55,8 @@ async function main(): Promise<void> {
     if (shouldExposeCode) {
       let code = getVersionCode(fileContent);
       if (code != null) {
-        setEnvironmentVariable('ANDROID_VERSION_CODE', code);
-        core.info(`Exposing ANDROID_VERSION_CODE with this value: ${code}.`);
+        setOutput('android-version-code', code);
+        core.info(`Set android-version-code to this value: ${code}.`);
       } else {
         failWithMessage('Version code could not be found in the file');
 
@@ -66,15 +66,18 @@ async function main(): Promise<void> {
     if (shouldExposeName) {
       let name = getVersionName(fileContent);
       if (name != null) {
-        setEnvironmentVariable('ANDROID_VERSION_NAME', name);
-        core.info(`Exposing ANDROID_VERSION_NAME with this value: ${name}.`);
+        setOutput('android-version-name', name);
+        core.info(`Set android-version-name to this value: ${name}.`);
       } else {
         failWithMessage('Version name could not be found in the file');
       }
     }
 
   } catch (error) {
-    core.setFailed(error.message);
+    if (error instanceof Error) {
+          core.setFailed(error.message);
+    }
+    failWithMessage(`Unknown error: ${error}`);
   }
 }
 
